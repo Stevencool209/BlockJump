@@ -1,12 +1,12 @@
 #region Using Statements
-using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
-using Microsoft.Xna.Framework.GamerServices;
+using System;
+using System.Collections.Generic;
 #endregion
 
 namespace BlockJump
@@ -49,6 +49,7 @@ namespace BlockJump
         Vector2 SpielerPosOld;
         Vector2 SpielerSpawnPos;
 
+        int GehRichtung;
         String SpielerTex = "Rechts1";
         int SpielerFrame;
         int SpielerinsgFrame = 2;
@@ -72,8 +73,7 @@ namespace BlockJump
 
         protected override void Initialize()
         {
-            
-            
+
             base.Initialize();
         }
 
@@ -112,62 +112,116 @@ namespace BlockJump
             BlockFrm[2] = 0;
             #endregion
             #region Stein(3)
-            BlockTex[3,1] = Content.Load<Texture2D>("Stein");  //ID 3 = SteinHart
+            BlockTex[3,1] = Content.Load<Texture2D>("Blöcke/Stein");  //ID 3 = SteinHart
             BlockHart[3] = true;
             BlockinsgFrm[3] = 1;
             BlockFrm[3] = 1;
             #endregion
             #region Erde(4)
-            BlockTex[4,1] = Content.Load<Texture2D>("Erde");  //ID 4 = Erde Hart
+            BlockTex[4, 1] = Content.Load<Texture2D>("Blöcke/Erde");  //ID 4 = Erde Hart
             BlockHart[4] = true;
             BlockinsgFrm[4] = 1;
             BlockFrm[4] = 1;
             #endregion
             #region Gras(5)
-            BlockTex[5, 1] = Content.Load<Texture2D>("Gras/Gras1"); //ID 5 = Gras Hart
-            BlockTex[5, 2] = Content.Load<Texture2D>("Gras/Gras2");
-            BlockTex[5, 3] = Content.Load<Texture2D>("Gras/Gras3");
+            BlockTex[5, 1] = Content.Load<Texture2D>("Blöcke/Gras/Gras1"); //ID 5 = Gras Hart
+            BlockTex[5, 2] = Content.Load<Texture2D>("Blöcke/Gras/Gras2");
+            BlockTex[5, 3] = Content.Load<Texture2D>("Blöcke/Gras/Gras3");
             BlockHart[5] = true;
             BlockinsgFrm[5] = 3;
             BlockFrm[5] = 1;
             #endregion
             #region Holz(6)
-            BlockTex[6,1] = Content.Load<Texture2D>("Holz"); //ID 6 = Holz Hart
+            BlockTex[6, 1] = Content.Load<Texture2D>("Blöcke/Holz"); //ID 6 = Holz Hart
             BlockHart[6] = true;
             BlockinsgFrm[6] = 1;
             BlockFrm[6] = 1;
             #endregion
             #region Blatt(7)
-            BlockTex[7, 1] = Content.Load<Texture2D>("Blatt/Blatt1");  //ID 7 = Blatt Hart
-            BlockTex[7, 2] = Content.Load<Texture2D>("Blatt/Blatt2");
-            BlockTex[7, 3] = Content.Load<Texture2D>("Blatt/Blatt3");
+            BlockTex[7, 1] = Content.Load<Texture2D>("Blöcke/Blatt/Blatt1");  //ID 7 = Blatt Hart
+            BlockTex[7, 2] = Content.Load<Texture2D>("Blöcke/Blatt/Blatt2");
+            BlockTex[7, 3] = Content.Load<Texture2D>("Blöcke/Blatt/Blatt3");
             BlockHart[7] = true;
             BlockinsgFrm[7] = 3;
             BlockFrm[7] = 1;
             #endregion
             #region MohnBlume(8)
-            BlockTex[8, 1] = Content.Load<Texture2D>("MohnBlume");  //ID 8 = MohnBlume NichtHart
+            BlockTex[8, 1] = Content.Load<Texture2D>("Blöcke/MohnBlume");  //ID 8 = MohnBlume NichtHart
             BlockHart[8] = false;
             BlockinsgFrm[8] = 1;
             BlockFrm[8] = 1;
             #endregion
             #region Steinmauer(9)
-            BlockTex[9, 1] = Content.Load<Texture2D>("Steinmauer");  //ID 9 = Steinmauer Hart
+            BlockTex[9, 1] = Content.Load<Texture2D>("Blöcke/Steinmauer");  //ID 9 = Steinmauer Hart
             BlockHart[9] = true;
             BlockinsgFrm[9] = 1;
             BlockFrm[9] = 1;
             #endregion
             #region Wasser(10)
-            BlockTex[10, 1] = Content.Load<Texture2D>("Wasser/Wasser1");  //ID 9 = Wasser NichtHart
-            BlockTex[10, 2] = Content.Load<Texture2D>("Wasser/Wasser2");
-            BlockTex[10, 3] = Content.Load<Texture2D>("Wasser/Wasser3");
-            BlockTex[10, 4] = Content.Load<Texture2D>("Wasser/Wasser4");
-            BlockTex[10, 5] = Content.Load<Texture2D>("Wasser/Wasser5");
-            BlockTex[10, 6] = Content.Load<Texture2D>("Wasser/Wasser6");
-            BlockTex[10, 7] = Content.Load<Texture2D>("Wasser/Wasser7");
+            BlockTex[10, 1] = Content.Load<Texture2D>("Blöcke/Wasser/Wasser1");  //ID 9 = Wasser NichtHart
+            BlockTex[10, 2] = Content.Load<Texture2D>("Blöcke/Wasser/Wasser2");
+            BlockTex[10, 3] = Content.Load<Texture2D>("Blöcke/Wasser/Wasser3");
+            BlockTex[10, 4] = Content.Load<Texture2D>("Blöcke/Wasser/Wasser4");
+            BlockTex[10, 5] = Content.Load<Texture2D>("Blöcke/Wasser/Wasser5");
+            BlockTex[10, 6] = Content.Load<Texture2D>("Blöcke/Wasser/Wasser6");
+            BlockTex[10, 7] = Content.Load<Texture2D>("Blöcke/Wasser/Wasser7");
             BlockHart[10] = false;
             BlockinsgFrm[10] = 7;
             BlockFrm[10] = 1;
+            #endregion
+            #region Lava(11)
+            BlockTex[11, 1] = Content.Load<Texture2D>("Blöcke/Lava/Lava1");
+            BlockTex[11, 2] = Content.Load<Texture2D>("Blöcke/Lava/Lava2");
+            BlockTex[11, 3] = Content.Load<Texture2D>("Blöcke/Lava/Lava3");
+            BlockTex[11, 4] = Content.Load<Texture2D>("Blöcke/Lava/Lava4");
+            BlockTex[11, 5] = Content.Load<Texture2D>("Blöcke/Lava/Lava5");
+            BlockTex[11, 6] = Content.Load<Texture2D>("Blöcke/Lava/Lava6");
+            BlockTex[11, 7] = Content.Load<Texture2D>("Blöcke/Lava/Lava7");
+            BlockHart[11] = false;
+            BlockinsgFrm[11] = 7;
+            BlockFrm[11] = 1;
+            #endregion
+            #region Kristalle(16-20)
+            #region Emerald(16)
+            BlockTex[16, 1] = Content.Load<Texture2D>("Blöcke/Kristalle/Emerald1");
+            BlockTex[16, 2] = Content.Load<Texture2D>("Blöcke/Kristalle/Emerald2");
+            BlockTex[16, 3] = Content.Load<Texture2D>("Blöcke/Kristalle/Emerald3");
+            BlockHart[16] = true;
+            BlockinsgFrm[16] = 3;
+            BlockFrm[16] = 1;
+            #endregion
+            #region Kristallum(17)
+            BlockTex[17, 1] = Content.Load<Texture2D>("Blöcke/Kristalle/Kristallum1");
+            BlockTex[17, 2] = Content.Load<Texture2D>("Blöcke/Kristalle/Kristallum2");
+            BlockTex[17, 3] = Content.Load<Texture2D>("Blöcke/Kristalle/Kristallum3");
+            BlockHart[17] = true;
+            BlockinsgFrm[17] = 3;
+            BlockFrm[17] = 1;
+            #endregion
+            #region Rubin(18)
+            BlockTex[18, 1] = Content.Load<Texture2D>("Blöcke/Kristalle/Rubin1");
+            BlockTex[18, 2] = Content.Load<Texture2D>("Blöcke/Kristalle/Rubin2");
+            BlockTex[18, 3] = Content.Load<Texture2D>("Blöcke/Kristalle/Rubin3");
+            BlockHart[18] = true;
+            BlockinsgFrm[18] = 3;
+            BlockFrm[18] = 1;
+            #endregion
+            #region Saphir(19)
+            BlockTex[19, 1] = Content.Load<Texture2D>("Blöcke/Kristalle/Saphir1");
+            BlockTex[19, 2] = Content.Load<Texture2D>("Blöcke/Kristalle/Saphir2");
+            BlockTex[19, 3] = Content.Load<Texture2D>("Blöcke/Kristalle/Saphir3");
+            BlockHart[19] = true;
+            BlockinsgFrm[19] = 3;
+            BlockFrm[19] = 1;
+            #endregion
+            #region Emerald(20)
+            BlockTex[20, 1] = Content.Load<Texture2D>("Blöcke/Kristalle/Gold1");
+            BlockTex[20, 2] = Content.Load<Texture2D>("Blöcke/Kristalle/Gold2");
+            BlockTex[20, 3] = Content.Load<Texture2D>("Blöcke/Kristalle/Gold3");
+            BlockHart[20] = true;
+            BlockinsgFrm[20] = 3;
+            BlockFrm[20] = 1;
+            #endregion
             #endregion
             #endregion
 
@@ -180,6 +234,7 @@ namespace BlockJump
 
         protected override void Update(GameTime gameTime)
         {
+            //SpielerWalk((float)gameTime.ElapsedGameTime.TotalSeconds);
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             #region Tick
@@ -210,7 +265,23 @@ namespace BlockJump
             SpielerRect.X = (int)SpielerPos.X;
             SpielerRect.Y = (int)SpielerPos.Y;
 
-            SpielerSteuerung();
+            #region Tastenerkennung
+            KeyboardState kState = Keyboard.GetState();
+            if(kState.IsKeyDown(Keys.A))
+            {
+                SpielerWalk((float)-gameTime.ElapsedGameTime.TotalSeconds);
+                SpielerTex = "Links1";
+            }
+            else if(kState.IsKeyDown(Keys.D))
+            {
+                SpielerWalk((float)gameTime.ElapsedGameTime.TotalSeconds);
+                SpielerTex = "Rechts1";
+            }
+            #endregion
+
+            SpielerFall(gameTime);
+
+            SpielerFall(gameTime);
 
             base.Update(gameTime);
         }
@@ -229,38 +300,78 @@ namespace BlockJump
                 {
                     if (BlockID[x,y] == 3)          //Stein
                     {
+                        //Stein
                         spriteBatch.Draw(BlockTex[3, BlockFrm[3]], new Rectangle((int)BlockPos[x, y].X, (int)BlockPos[x, y].Y, SS.Width / MapTex[MapID].Width, SS.Height / MapTex[MapID].Height), Color.White);
                     }
                     else if (BlockID[x,y] == 4)     
                     {
+                        //Erde
                         spriteBatch.Draw(BlockTex[4, BlockFrm[4]], new Rectangle((int)BlockPos[x, y].X, (int)BlockPos[x, y].Y, SS.Width / MapTex[MapID].Width, SS.Height / MapTex[MapID].Height), Color.White);
                     }
                     else if (BlockID[x,y] == 5)
                     {
+                        //Gras
                         spriteBatch.Draw(BlockTex[5, BlockFrm[5]], new Rectangle((int)BlockPos[x, y].X, (int)BlockPos[x, y].Y, SS.Width / MapTex[MapID].Width, SS.Height / MapTex[MapID].Height), Color.White);
                     }
                     else if (BlockID[x,y] == 6)
                     {
+                        //Holz
                         spriteBatch.Draw(BlockTex[6, BlockFrm[6]], new Rectangle((int)BlockPos[x, y].X, (int)BlockPos[x, y].Y, SS.Width / MapTex[MapID].Width, SS.Height / MapTex[MapID].Height), Color.White);
                     }
                     else if (BlockID[x, y] == 7)
                     {
+                        //Blatt
                         spriteBatch.Draw(BlockTex[7, BlockFrm[7]], new Rectangle((int)BlockPos[x, y].X, (int)BlockPos[x, y].Y, SS.Width / MapTex[MapID].Width, SS.Height / MapTex[MapID].Height), Color.White);
                     }
                     else if (BlockID[x, y] == 8)
                     {
+                        //Mohnblume
                         spriteBatch.Draw(BlockTex[8, BlockFrm[8]], new Rectangle((int)BlockPos[x, y].X, (int)BlockPos[x, y].Y, SS.Width / MapTex[MapID].Width, SS.Height / MapTex[MapID].Height), Color.White);
                     }
                     else if (BlockID[x, y] == 9)
                     {
+                        //Steinmauer
                         spriteBatch.Draw(BlockTex[9, BlockFrm[9]], new Rectangle((int)BlockPos[x, y].X, (int)BlockPos[x, y].Y, SS.Width / MapTex[MapID].Width, SS.Height / MapTex[MapID].Height), Color.White);
                     }
                     else if (BlockID[x, y] == 10)
                     {
+                        //Wasser
                         spriteBatch.Draw(BlockTex[10, BlockFrm[10]], new Rectangle((int)BlockPos[x, y].X, (int)BlockPos[x, y].Y, SS.Width / MapTex[MapID].Width, SS.Height / MapTex[MapID].Height), Color.White);
                     }
+                    else if (BlockID[x, y] == 11)
+                    {
+                        //Lava
+                        spriteBatch.Draw(BlockTex[11, BlockFrm[11]], new Rectangle((int)BlockPos[x, y].X, (int)BlockPos[x, y].Y, SS.Width / MapTex[MapID].Width, SS.Height / MapTex[MapID].Height), Color.White);
+                    }
+
+
+                    else if (BlockID[x, y] == 16)
+                    {
+                        //Emerald
+                        spriteBatch.Draw(BlockTex[16, BlockFrm[16]], new Rectangle((int)BlockPos[x, y].X, (int)BlockPos[x, y].Y, SS.Width / MapTex[MapID].Width, SS.Height / MapTex[MapID].Height), Color.White);
+                    }
+                    else if (BlockID[x, y] == 17)
+                    {
+                        //Kristallum
+                        spriteBatch.Draw(BlockTex[17, BlockFrm[17]], new Rectangle((int)BlockPos[x, y].X, (int)BlockPos[x, y].Y, SS.Width / MapTex[MapID].Width, SS.Height / MapTex[MapID].Height), Color.White);
+                    }
+                    else if (BlockID[x, y] == 18)
+                    {
+                        //Rubin
+                        spriteBatch.Draw(BlockTex[18, BlockFrm[18]], new Rectangle((int)BlockPos[x, y].X, (int)BlockPos[x, y].Y, SS.Width / MapTex[MapID].Width, SS.Height / MapTex[MapID].Height), Color.White);
+                    }
+                    else if (BlockID[x, y] == 19)
+                    {
+                        //Saphir
+                        spriteBatch.Draw(BlockTex[19, BlockFrm[19]], new Rectangle((int)BlockPos[x, y].X, (int)BlockPos[x, y].Y, SS.Width / MapTex[MapID].Width, SS.Height / MapTex[MapID].Height), Color.White);
+                    }
+                    else if (BlockID[x, y] == 20)
+                    {
+                        spriteBatch.Draw(BlockTex[20, BlockFrm[20]], new Rectangle((int)BlockPos[x, y].X, (int)BlockPos[x, y].Y, SS.Width / MapTex[MapID].Width, SS.Height / MapTex[MapID].Height), Color.White);
+                    }
                     else
-                    {}
+                    {
+                    }
                 }
             }
             #endregion
@@ -294,12 +405,8 @@ namespace BlockJump
             {}
             #endregion
 
-            if(springt == true)
-            {
-                Sprunggeschwindigkeit += 1;
-                SpielerPos.Y += Sprunggeschwindigkeit;
-            }
             
+            //Kollision();
             spriteBatch.End();
 
             base.Draw(gameTime);
@@ -320,32 +427,32 @@ namespace BlockJump
                         //SPAWN
                         SpielerSpawnPos.X = x * (SS.Width / 20);
                         SpielerSpawnPos.Y = y * (SS.Height / 10);
-                        BlockID[x,y] = 1;
+                        BlockID[x, y] = 1;
                     }
                     else if (colors2D[x, y].G == 128 && colors2D[x, y].R == 128 && colors2D[x, y].B == 128)
                     {
                         //STEIN
-                        BlockID[x,y] = 3;
+                        BlockID[x, y] = 3;
                     }
                     else if (colors2D[x, y].G == 0 && colors2D[x, y].R == 127 && colors2D[x, y].B == 0)
                     {
                         //ERDE
-                        BlockID[x,y] = 4;
+                        BlockID[x, y] = 4;
                     }
                     else if (colors2D[x, y].G == 255 && colors2D[x, y].R == 182 && colors2D[x, y].B == 0)
                     {
                         //GRAS
-                        BlockID[x,y] = 5;
+                        BlockID[x, y] = 5;
                     }
                     else if (colors2D[x, y].G == 0 && colors2D[x, y].R == 255 && colors2D[x, y].B == 0)
                     {
                         //HOLZ
-                        BlockID[x,y] = 6;
+                        BlockID[x, y] = 6;
                     }
                     else if (colors2D[x, y].G == 255 && colors2D[x, y].R == 76 && colors2D[x, y].B == 0)
                     {
                         //BLATT
-                        BlockID[x,y] = 7;
+                        BlockID[x, y] = 7;
                     }
                     else if (colors2D[x, y].R == 255 && colors2D[x, y].G == 100 && colors2D[x, y].B == 0)
                     {
@@ -362,10 +469,39 @@ namespace BlockJump
                         //Wasser
                         BlockID[x, y] = 10;
                     }
-                    
+                    else if (colors2D[x, y].R == 173 && colors2D[x, y].G == 31 && colors2D[x, y].B == 0)
+                    {
+                        //Lava
+                        BlockID[x, y] = 11;
+                    }
+                    else if (colors2D[x, y].R == 0 && colors2D[x, y].G == 255 && colors2D[x, y].B == 0)
+                    {
+                        //Kristall: Emerald
+                        BlockID[x, y] = 16;
+                    }
+                    else if (colors2D[x, y].R == 0 && colors2D[x, y].G == 254 && colors2D[x, y].B == 0)
+                    {
+                        //Kristall: Kristallum
+                        BlockID[x, y] = 17;
+                    }
+                    else if (colors2D[x, y].R == 0 && colors2D[x, y].G == 253 && colors2D[x, y].B == 0)
+                    {
+                        //Kristall: Rubin
+                        BlockID[x, y] = 18;
+                    }
+                    else if (colors2D[x, y].R == 0 && colors2D[x, y].G == 252 && colors2D[x, y].B == 0)
+                    {
+                        //Kristall: Saphir
+                        BlockID[x, y] = 19;
+                    }
+                    else if (colors2D[x, y].R == 0 && colors2D[x, y].G == 251 && colors2D[x, y].B == 0)
+                    {
+                        //Kristall: Gold
+                        BlockID[x, y] = 20;
+                    }
                     else
                     {
-                        BlockID[x,y] = 0;
+                        BlockID[x, y] = 0;
                     }
                 }
             }
@@ -391,67 +527,46 @@ namespace BlockJump
             SpielerPosOld = SpielerPos;
         }
 
-        protected void SpielerSteuerung()
+        protected void SpielerWalk(float Richtung)
         {
-            KeyboardState kState = Keyboard.GetState();
-            #region Kollision
-            for (int y = 0; y <= 9; y++)
+            Vector2 oldPos = new Vector2(SpielerPos.X, SpielerPos.Y);
+            
+            SpielerPos.X += Richtung;
+
+            SpielerKollision(oldPos);
+        }
+
+        protected void SpielerKollision(Vector2 oldPos)
+        {
+            for (int x = 0;x <= MapTex[MapID].Width; x++)
             {
-                for (int x = 0; x <= 19; x++)
+                for(int y = 0; y <= MapTex[MapID].Height; y++)
                 {
-                    try
+                    if(SpielerRect.Intersects(new Rectangle((int)BlockPos[x,y].X, (int)BlockPos[x,y].Y, (int)SS.Width / MapTex[MapID].Width, (int)SS.Height / MapTex[MapID].Height)) && BlockHart[BlockID[x,y]] == true)
                     {
-
-                        if (SpielerPos.X >= BlockPos[x,y].X && SpielerPos.X <= BlockPos[x,y].X + SS.Width / MapTex[MapID].Width && BlockHart[BlockID[x,y]] == true)
-                        {
-                            SpielerPos.X = (int)SpielerPosOld.X;
-                        }
-                        else
-                        {
-
-                        }
-
-                        if (SpielerPos.Y >= BlockPos[x, y].Y && SpielerPos.Y <= BlockPos[x, y].Y + SS.Height / MapTex[MapID].Height && BlockHart[BlockID[x, y]] == true)
-                        {
-                            SpielerPos.Y = SpielerPosOld.Y;
-                            springt = false;
-                            Sprungerlaubt = true;
-                        }
-                        else
-                        {
-
-                        }
+                        SpielerPos = new Vector2(oldPos.X, oldPos.Y);
                     }
-                    catch (IndexOutOfRangeException)
+                    else
                     {
-
+                        
                     }
                 }
+                
             }
-            #endregion
-            #region Tastenbelegung
-            SpielerPosOld = SpielerPos;
-            //Springen:
-            if (kState.IsKeyDown(Keys.W) && Sprungerlaubt == true)
+            
+        }
+
+        protected void SpielerFall(GameTime gameTime)
+        {
+            if(springt == true && Sprunggeschwindigkeit <= 10)
             {
-                Sprunggeschwindigkeit = -19;
-                springt = true;
-                Sprungerlaubt = false;
+                Sprunggeschwindigkeit += 1;
             }
-            //rechts
-            if(kState.IsKeyDown(Keys.D))
+            else
             {
-                SpielerPos.X += 1.5f;
-                SpielerTex = "Rechts1";
+                
             }
-            //links
-            else if (kState.IsKeyDown(Keys.A))
-            {
-                SpielerPos.X -= 1.5f;
-                SpielerTex = "Links1";
-            }
-            #endregion
-            SpielerPos.Y += 2;
+            SpielerPos.Y += Sprunggeschwindigkeit * gameTime.ElapsedGameTime.Milliseconds;
         }
 
         protected void Animation()
